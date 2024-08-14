@@ -46,7 +46,6 @@ except ImportError as e:
 
 from CanvasSync.utilities.ANSI import ANSI
 from CanvasSync.settings.settings import Settings
-from CanvasSync.utilities import helpers
 from CanvasSync.utilities.instructure_api import InstructureApi
 from CanvasSync import usage
 
@@ -159,14 +158,6 @@ def do_sync(settings, password=None):
 
 
 def entry():
-    if os.name == u"nt":
-        # Warn Windows users
-        helpers.clear_console()
-        print(u"\n[OBS] You are running CanvasSync on a Windows operating system.\n"
-                  u"      The application is not developed for Windows machines and may be\n"
-                  u"      unstable. Some pretty output formatting and tab-autocompletion\n"
-                  u"      is not supported... :-(\n")
-
     try:
         run_canvas_sync()
     except KeyboardInterrupt:
