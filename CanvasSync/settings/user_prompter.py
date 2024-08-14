@@ -14,9 +14,6 @@ A collection of functions used to prompt the user for settings.
 # - Comments
 # - Make a Y/N function to reduce code redundancy
 
-# Future
-from __future__ import print_function
-
 # Inbuilt modules
 import glob
 import os

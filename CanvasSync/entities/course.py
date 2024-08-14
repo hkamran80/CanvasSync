@@ -19,12 +19,6 @@ See developer_info.txt file for more information on the class hierarchy of Canva
 
 """
 
-# Future imports
-from __future__ import print_function
-
-# Third party
-from six import text_type
-
 # CanvasSync modules
 from CanvasSync.entities.canvas_entity import CanvasEntity
 from CanvasSync.entities.module import Module
@@ -127,7 +121,7 @@ class Course(CanvasEntity):
         if not list(self.settings.modules_settings.values()) == [False, False, False]:
             self.add_modules()
 
-        print(text_type(self))
+        print(str(self))
 
         # Add an AssignmentsFolder if at least one assignment is found under the course
         self.add_assignments_folder()
@@ -144,7 +138,7 @@ class Course(CanvasEntity):
         1) Adding all Modules and AssignmentFolder objects to the list of children
         2) Synchronize all children objects
         """
-        print(text_type(self))
+        print(str(self))
 
         if not self.to_be_synced:
             return
@@ -164,7 +158,7 @@ class Course(CanvasEntity):
 
     def show(self):
         """ Show the folder hierarchy by printing every level """
-        print(text_type(self))
+        print(str(self))
 
         for child in self:
             child.show()

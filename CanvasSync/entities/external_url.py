@@ -16,14 +16,8 @@ See developer_info.txt file for more information on the class hierarchy of Canva
 
 """
 
-# Future imports
-from __future__ import print_function
-
 # Inbuilt modules
 import sys
-
-# Third party
-from six import text_type
 
 # CanvasSync module imports
 from CanvasSync.entities.canvas_entity import CanvasEntity
@@ -63,7 +57,7 @@ class ExternalUrl(CanvasEntity):
 
     def walk(self, counter):
         """ Stop walking, endpoint """
-        print(text_type(self))
+        print(str(self))
 
         counter[0] += 1
         return
@@ -83,4 +77,4 @@ class ExternalUrl(CanvasEntity):
 
     def show(self):
         """ Show the folder hierarchy by printing every level """
-        print(text_type(self))
+        print(str(self))

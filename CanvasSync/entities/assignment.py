@@ -18,16 +18,10 @@ See developer_info.txt file for more information on the class hierarchy
 of entity objects.
 """
 
-# Future imports
-from __future__ import print_function
-
 # Inbuilt modules
 import re
 import os
 import io
-
-# Third party
-from six import text_type
 
 # CanvasSync module imports
 from CanvasSync.entities.canvas_entity import CanvasEntity
@@ -131,7 +125,7 @@ class Assignment(CanvasEntity):
 
     def walk(self, counter):
         """ Walk by adding all File objects to the list of children """
-        print(text_type(self))
+        print(str(self))
         self.add_files()
 
         counter[0] += 1
@@ -143,7 +137,7 @@ class Assignment(CanvasEntity):
         1) Adding all File and LinkedFile objects to the list of children
         2) Synchronize all children objects
         """
-        print(text_type(self))
+        print(str(self))
 
         self.add_files()
         self.make_html()
@@ -153,7 +147,7 @@ class Assignment(CanvasEntity):
 
     def show(self):
         """ Show the folder hierarchy by printing every level """
-        print(text_type(self))
+        print(str(self))
 
         for file in self:
             file.show()

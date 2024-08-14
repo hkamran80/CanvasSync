@@ -34,15 +34,9 @@ to validate the user input password.
 # - Make it possible reuse settings, so that you do not have to
 #   re-specify all settings to change a single one
 
-# Future imports
-from __future__ import print_function
-
 # Inbuilt modules
 import os
 import sys
-
-# Third party modules
-from six.moves import input
 
 # CanvasSync modules
 from CanvasSync.settings.cryptography import encrypt, decrypt

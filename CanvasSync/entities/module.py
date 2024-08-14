@@ -16,12 +16,6 @@ See developer_info.txt file for more information on the class hierarchy of Canva
 
 """
 
-# Future imports
-from __future__ import print_function
-
-# Third party
-from six import text_type
-
 # CanvasSync modules
 from CanvasSync.entities.canvas_entity import CanvasEntity
 from CanvasSync.entities.file import File
@@ -148,7 +142,7 @@ class Module(CanvasEntity):
         Walk by adding all File, Page, ExternalLink and SubFolder objects to the list of children
         Overwritten in derived SubFolder class
         """
-        print(text_type(self))
+        print(str(self))
 
         self.add_items()
 
@@ -161,7 +155,7 @@ class Module(CanvasEntity):
         1) Adding all File, Page, ExternalLink and SubFolder objects to the list of children
         2) Synchronize all children objects
         """
-        print(text_type(self))
+        print(str(self))
 
         self.add_items()
 
@@ -170,7 +164,7 @@ class Module(CanvasEntity):
 
     def show(self):
         """ Show the folder hierarchy by printing every level """
-        print(text_type(self))
+        print(str(self))
 
         for child in self:
             child.show()

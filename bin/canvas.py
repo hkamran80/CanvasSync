@@ -20,16 +20,10 @@ The module takes the arguments -s or --setup that will force CanvasSync to promp
 
 """
 
-# Future imports
-from __future__ import print_function
-
 # Inbuilt modules
 import getopt
 import os
 import sys
-
-# If python 2.7, use raw_input(), otherwise use input()
-from six.moves import input
 
 # CanvasSync modules
 try:
@@ -55,15 +49,6 @@ from CanvasSync.settings.settings import Settings
 from CanvasSync.utilities import helpers
 from CanvasSync.utilities.instructure_api import InstructureApi
 from CanvasSync import usage
-
-try:
-    import requests
-    import bcrypt
-    import Crypto
-except ImportError:
-    print(u"\n [ERROR] Missing dependencies.\n"
-          u"         Please install requests, py-bcrypt and pycrypto "
-          u"(alternatively use PIP to install CanvasSync)'")
 
 
 def run_canvas_sync():

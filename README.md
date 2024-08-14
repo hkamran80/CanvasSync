@@ -44,9 +44,6 @@ If you choose not to work with PIP, CanvasSync has the following dependencies th
 Dependencies
 ---------------
 - Requests  (http://docs.python-requests.org/en/master/)
-- PyCrypto  (https://pypi.python.org/pypi/pycrypto)
-- py-bcrypt (http://www.mindrot.org/projects/py-bcrypt/)
-- six (https://pypi.python.org/pypi/six)
 
 Usage examples
 --------------

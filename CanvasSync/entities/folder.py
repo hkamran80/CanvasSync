@@ -15,12 +15,6 @@ See developer_info.txt file for more information on the class hierarchy of Canva
 
 """
 
-# Future imports
-from __future__ import print_function
-
-# Third party
-from six import text_type
-
 # CanvasSync modules
 from CanvasSync.utilities.ANSI import ANSI
 from CanvasSync.entities.canvas_entity import CanvasEntity
@@ -104,7 +98,7 @@ class Folder(CanvasEntity):
         """
         Walk by adding all Files and Folder objects to the list of children
         """
-        print(text_type(self))
+        print(str(self))
 
         # If avoid duplicated setting is active, initialize black list of files found in Modules and
         # Assignments if it was not passed to the object at initialization.
@@ -125,7 +119,7 @@ class Folder(CanvasEntity):
         1) Adding all Files and Folder objects to the list of children
         2) Synchronize all children objects
         """
-        print(text_type(self))
+        print(str(self))
 
         # If avoid duplicated setting is active, initialize black list of files found in Modules and
         # Assignments if it was not passed to the object at initialization.

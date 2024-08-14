@@ -13,9 +13,6 @@ Implements the help function that displays the help prompt.
 # TODO
 # Update the help section
 
-# Future imports
-from __future__ import print_function
-
 # Inbuilt modules
 import sys
 

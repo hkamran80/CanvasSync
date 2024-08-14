@@ -17,15 +17,6 @@ See developer_info.txt file for more information on the class hierarchy of Canva
 
 """
 
-# TODO
-# - Fix recursion to allow for nested SubHeaders
-
-# Future imports
-from __future__ import print_function
-
-# Third party
-from six import text_type
-
 # CanvasSync modules
 from CanvasSync.utilities.ANSI import ANSI
 from CanvasSync.entities.module import Module
@@ -70,7 +61,7 @@ class SubHeader(Module):
         SubFolder is instantiated with a list of dictionaries of item information and will supply this to the add_items
         method. add_items will then not download the items from the server.
         """
-        print(text_type(self))
+        print(str(self))
 
         self.add_items(items=self.items)
 
@@ -86,7 +77,7 @@ class SubHeader(Module):
         SubFolder is instantiated with a list of dictionaries of item information and will supply this to the add_items
         method. add_items will then not download the items from the server.
         """
-        print(text_type(self))
+        print(str(self))
 
         self.add_items(items=self.items)
 

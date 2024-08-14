@@ -15,12 +15,6 @@ See developer_info.txt file for more information on the class hierarchy of entit
 
 """
 
-# Future imports
-from __future__ import print_function
-
-# Third party
-from six import text_type
-
 # CanvasSync module imports
 from CanvasSync.entities.canvas_entity import CanvasEntity
 from CanvasSync.entities.assignment import Assignment
@@ -68,7 +62,7 @@ class AssignmentsFolder(CanvasEntity):
 
     def walk(self, counter):
         """ Walk by adding all Assignment objects to the list of children """
-        print(text_type(self))
+        print(str(self))
 
         self.add_assignments()
 
@@ -81,7 +75,7 @@ class AssignmentsFolder(CanvasEntity):
         1) Adding all Assignment objects to the list of children
         2) Synchronize all children objects
         """
-        print(text_type(self))
+        print(str(self))
 
         self.add_assignments()
 
@@ -90,7 +84,7 @@ class AssignmentsFolder(CanvasEntity):
 
     def show(self):
         """ Show the folder hierarchy by printing every level """
-        print(text_type(self))
+        print(str(self))
 
         for child in self:
             child.show()

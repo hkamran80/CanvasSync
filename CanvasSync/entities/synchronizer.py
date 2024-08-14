@@ -17,12 +17,6 @@ The Synchronizer encapsulates a list of children Course objects.
 
 """
 
-# Future imports
-from __future__ import print_function
-
-# Third party
-from six import text_type
-
 # CanvasSync modules
 from CanvasSync.entities.course import Course
 from CanvasSync.entities.canvas_entity import CanvasEntity
@@ -121,7 +115,7 @@ class Synchronizer(CanvasEntity):
         1) Adding all Courses objects to the list of children
         2) Synchronize all children objects
         """
-        print(text_type(self))
+        print(str(self))
 
         self.add_courses()
         for course in self:
@@ -132,7 +126,7 @@ class Synchronizer(CanvasEntity):
 
         helpers.clear_console()
         print(u"\n")
-        print(text_type(self))
+        print(str(self))
 
         for course in self:
             course.show()

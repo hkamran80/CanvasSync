@@ -14,9 +14,6 @@ A collection of small static helper-functions used in various modules of CanvasS
 # - Improve domain validation check, it is quite limit at this moment
 # - (find better solution to sub-folder problem than the reorganize function?)
 
-# Future imports
-from __future__ import print_function
-
 # Inbuilt modules
 import os
 

@@ -30,27 +30,28 @@ with open("requirements.txt") as req_file:
     requirements = list(filter(None, req_file.read().split("\n")))
 
 
-setup(name='CanvasSync',
-      version=get_version(),
-      description='Synchronizes modules, assignments and files from a '
-                  'Canvas server to a local folder',
-      long_description=readme + "\n\n" + changes,
-      author='Mathias Perslev',
-      author_email='mathias@perslev.com',
-      url='https://github.com/perslev/CanvasSync',
-      license="LICENSE.txt",
-      packages=find_packages(),
-      package_dir={'CanvasSync': 'CanvasSync'},
-      entry_points={
-          'console_scripts': [
-              'canvas=bin.canvas:entry',
-          ],
-      },
-      install_requires=requirements,
-      classifiers=['Development Status :: 3 - Alpha',
-                   'Environment :: Console',
-                   'Operating System :: MacOS :: MacOS X',
-                   'Operating System :: POSIX',
-                   'Programming Language :: Python',
-                   'License :: OSI Approved :: MIT License']
-     )
+setup(
+    name='CanvasSync',
+    version=get_version(),
+    description='Synchronizes modules, assignments and files from a '
+                'Canvas server to a local folder',
+    long_description=readme + "\n\n" + changes,
+    author='Mathias Perslev',
+    author_email='mathias@perslev.com',
+    url='https://github.com/perslev/CanvasSync',
+    license="LICENSE.txt",
+    packages=find_packages(),
+    package_dir={'CanvasSync': 'CanvasSync'},
+    entry_points={
+        'console_scripts': [
+            'canvas=bin.canvas:entry',
+        ],
+    },
+    install_requires=requirements,
+    classifiers=['Development Status :: 3 - Alpha',
+                'Environment :: Console',
+                'Operating System :: MacOS :: MacOS X',
+                'Operating System :: POSIX',
+                'Programming Language :: Python',
+                'License :: OSI Approved :: MIT License']
+)
