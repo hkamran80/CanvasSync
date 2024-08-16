@@ -70,7 +70,11 @@ def run_canvas_sync():
     manual_sync = False
     password = ""
 
-    if len(opts) != 0:
+    if len(opts) == 0:
+        # Sync by default
+        manual_sync = True
+
+    else:
         for o, a in opts:
             if o in (u"-h", u"--help"):
                 # Show help
