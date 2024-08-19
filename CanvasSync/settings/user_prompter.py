@@ -44,7 +44,7 @@ def show_main_screen(settings_file_exists):
         import CanvasSync
         version = CanvasSync.__version__
 
-        title = u"CanvasSync, "
+        title = u"CanvasSync v"
         pretty_string = u"-" * (len(title) + len(version))
 
         print(ANSI.format(u"%s\n%s%s\n%s" % (pretty_string, title, version, pretty_string), u"file"))
