@@ -39,7 +39,9 @@ def run_canvas_sync():
 
     # Get command line arguments (C-style)
     try:
-        opts, args = getopt.getopt(sys.argv[1:], u"hsiSp:", [u"help", u"setup", u"info", u"sync", u"password"])
+        opts, args = getopt.getopt(
+            sys.argv[1:], u"hsiSNp:", [u"help", u"setup", u"info", u"sync", u"no-sync", u"password"]
+        )
     except getopt.GetoptError as err:
         # print help information and exit
         print(err)
