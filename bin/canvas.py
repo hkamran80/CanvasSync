@@ -22,32 +22,13 @@ The module takes the arguments -s or --setup that will force CanvasSync to promp
 
 # Inbuilt modules
 import getopt
-import os
 import sys
 
-# CanvasSync modules
-try:
-    from CanvasSync.entities.synchronizer import Synchronizer
-except ImportError as e:
-    if os.path.exists("../CanvasSync"):
-        debug = input("CanvasSync was not found on the PYTHONPATH, but it"
-                      " seems to exist at ../CanvasSync. "
-                      "\nDo you wish to use the "
-                      "package at this location instead? "
-                      "(usually for debugging purposes)"
-                      "\n(y/n) ").lower()
-        if debug == "y":
-            sys.path.insert(0, os.path.abspath('../'))
-            from CanvasSync.entities.synchronizer import Synchronizer
-        else:
-            raise e
-    else:
-        raise NotImplementedError("Cannot find the CanvasSync package")
-
-from CanvasSync.utilities.ANSI import ANSI
-from CanvasSync.settings.settings import Settings
-from CanvasSync.utilities.instructure_api import InstructureApi
 from CanvasSync import usage
+from CanvasSync.entities.synchronizer import Synchronizer
+from CanvasSync.settings.settings import Settings
+from CanvasSync.utilities.ANSI import ANSI
+from CanvasSync.utilities.instructure_api import InstructureApi
 
 
 def run_canvas_sync():
@@ -88,6 +69,9 @@ def run_canvas_sync():
             elif o in (u"-S", u"--sync"):
                 # Force sync
                 manual_sync = True
+            elif o in (u"-N", u"--no-sync"):
+                # Force sync
+                manual_sync = False
             elif o in (u"-p", u"--password"):
                 # Specify decyption password
                 print ("Warning: entering password via command "

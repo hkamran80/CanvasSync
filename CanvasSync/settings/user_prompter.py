@@ -25,9 +25,6 @@ try:
 except ImportError:
     unix = False
 
-# If python 2.7, use raw_input(), otherwise use input()
-from six.moves import input
-
 # CanvasSync module import
 from CanvasSync.utilities import helpers
 from CanvasSync.utilities.ANSI import ANSI

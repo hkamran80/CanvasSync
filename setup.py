@@ -1,24 +1,8 @@
 #!/usr/bin/env python
-from setuptools import setup, find_packages
-import re
 
+from setuptools import find_packages, setup
 
-VERSION_FILE = "./CanvasSync/_version.py"
-
-
-def get_version():
-    """ Load the CanvasSync package version string """
-
-    version_string = open(VERSION_FILE, "r").read()
-    regex = r"__version__[ ]?=[ ]?['\"]([^'\"]*)['\"]"
-
-    match = re.search(regex, version_string)
-
-    if match:
-        return match.group(1)
-    else:
-        raise RuntimeError("Unable to load version string in %s" % VERSION_FILE)
-
+from CanvasSync._version import __version__
 
 with open('README.md') as readme_file:
     readme = readme_file.read()
@@ -32,7 +16,7 @@ with open("requirements.txt") as req_file:
 
 setup(
     name='CanvasSync',
-    version=get_version(),
+    version=__version__,
     description='Synchronizes modules, assignments and files from a '
                 'Canvas server to a local folder',
     long_description=readme + "\n\n" + changes,
