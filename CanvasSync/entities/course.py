@@ -20,12 +20,12 @@ See developer_info.txt file for more information on the class hierarchy of Canva
 """
 
 # CanvasSync modules
-from CanvasSync.entities.canvas_entity import CanvasEntity
-from CanvasSync.entities.module import Module
 from CanvasSync.entities.assignments_folder import AssignmentsFolder
+from CanvasSync.entities.canvas_entity import CanvasEntity
 from CanvasSync.entities.folder import Folder
-from CanvasSync.utilities.ANSI import ANSI
+from CanvasSync.entities.module import Module
 from CanvasSync.utilities import helpers
+from CanvasSync.utilities.ANSI import ANSI
 
 
 class Course(CanvasEntity):
@@ -77,7 +77,7 @@ class Course(CanvasEntity):
             module = Module(module_info, position+1, parent=self)
             self.add_child(module)
 
-    def download_assignemtns(self):
+    def download_assignments(self):
         """ Return a list of dictionaries representing assignment objects """
         return self.api.get_assignments_in_course(self.id)
 
@@ -85,7 +85,7 @@ class Course(CanvasEntity):
         """ Add an AssigmentsFolder object to the children list """
 
         # Download potential assignments
-        assignments_info_list = self.download_assignemtns()
+        assignments_info_list = self.download_assignments()
 
         if len(assignments_info_list) == 0:
             return
@@ -153,8 +153,7 @@ class Course(CanvasEntity):
         # Add Various Files folder
         self.add_files_folder()
 
-        for child in self:
-            child.sync()
+        super().sync()
 
     def show(self):
         """ Show the folder hierarchy by printing every level """

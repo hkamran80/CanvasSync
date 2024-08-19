@@ -131,8 +131,7 @@ class Folder(CanvasEntity):
         self.add_files()
         self.add_sub_folders()
 
-        for item in self:
-            item.sync()
+        super().sync()
 
     def show(self):
         pass

@@ -142,8 +142,7 @@ class Assignment(CanvasEntity):
         self.add_files()
         self.make_html()
 
-        for file in self:
-            file.sync()
+        super().sync()
 
     def show(self):
         """ Show the folder hierarchy by printing every level """

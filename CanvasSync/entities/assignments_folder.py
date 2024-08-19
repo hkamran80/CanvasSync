@@ -79,8 +79,7 @@ class AssignmentsFolder(CanvasEntity):
 
         self.add_assignments()
 
-        for child in self:
-            child.sync()
+        super().sync()
 
     def show(self):
         """ Show the folder hierarchy by printing every level """

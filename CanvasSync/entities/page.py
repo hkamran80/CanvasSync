@@ -168,7 +168,7 @@ class Page(CanvasEntity):
 
         for file in self:
             file.update_path()
-            file.sync()
+        super().sync()
 
     def show(self):
         """ Show the folder hierarchy by printing every level """

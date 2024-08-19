@@ -81,5 +81,4 @@ class SubHeader(Module):
 
         self.add_items(items=self.items)
 
-        for child in self:
-            child.sync()
+        super().sync()

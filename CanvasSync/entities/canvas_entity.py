@@ -20,9 +20,9 @@ Any CanvasEntity object may be the parent object.
 See developer_info.txt file for more information on the class hierarchy of CanvasEntities objects.
 
 """
-
 # Inbuilt modules
 import os
+from concurrent.futures import ThreadPoolExecutor
 
 # CanvasSync module imports
 from CanvasSync.utilities import helpers
@@ -193,6 +193,12 @@ class CanvasEntity(object):
     def get_children(self):
         """ Getter method for the list of children """
         return self.children
+
+    def sync(self):
+        # Use ThreadPoolExecutor to synchronize children in parallel
+        with ThreadPoolExecutor() as executor:
+            for child in self:
+                executor.submit(child.sync)
 
     def update_path(self):
         """ Update the path to the current parents sync path plus the current file name """

@@ -18,8 +18,8 @@ The Synchronizer encapsulates a list of children Course objects.
 """
 
 # CanvasSync modules
-from CanvasSync.entities.course import Course
 from CanvasSync.entities.canvas_entity import CanvasEntity
+from CanvasSync.entities.course import Course
 from CanvasSync.utilities import helpers
 from CanvasSync.utilities.ANSI import ANSI
 
@@ -118,8 +118,8 @@ class Synchronizer(CanvasEntity):
         print(str(self))
 
         self.add_courses()
-        for course in self:
-            course.sync()
+
+        super().sync()
 
     def show(self):
         """ Show the folder hierarchy by printing every level """

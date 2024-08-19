@@ -159,8 +159,7 @@ class Module(CanvasEntity):
 
         self.add_items()
 
-        for child in self:
-            child.sync()
+        super().sync()
 
     def show(self):
         """ Show the folder hierarchy by printing every level """
