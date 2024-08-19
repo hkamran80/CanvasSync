@@ -147,7 +147,7 @@ def do_sync(settings, password=None):
     print(ANSI.format(u"\n\n[*] Sync complete", formatting=u"bold"))
 
 
-def entry():
+def main():
     try:
         run_canvas_sync()
     except KeyboardInterrupt:
@@ -156,5 +156,5 @@ def entry():
 
 
 # If main module
-if __name__ == u"__main__":
-    entry()
+if __name__ == "__main__":
+    main()

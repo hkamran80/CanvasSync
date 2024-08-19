@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-
-from setuptools import find_packages, setup
+from setuptools import setup
 
 from CanvasSync._version import __version__
 
@@ -24,11 +23,10 @@ setup(
     author_email='mathias@perslev.com',
     url='https://github.com/perslev/CanvasSync',
     license="LICENSE.txt",
-    packages=find_packages(),
     package_dir={'CanvasSync': 'CanvasSync'},
     entry_points={
         'console_scripts': [
-            'canvas=bin.canvas:entry',
+            'canvas=CanvasSync.__main__:main',
         ],
     },
     install_requires=requirements,
