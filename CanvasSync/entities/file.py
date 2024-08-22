@@ -19,10 +19,11 @@ See developer_info.txt file for more information on the class hierarchy of Canva
 # Inbuilt modules
 import os
 import sys
+from datetime import datetime
 
 from CanvasSync.entities.canvas_entity import CanvasEntity
-from CanvasSync.utilities.ANSI import ANSI
 from CanvasSync.utilities import helpers
+from CanvasSync.utilities.ANSI import ANSI
 
 
 class File(CanvasEntity):
@@ -60,8 +61,18 @@ class File(CanvasEntity):
 
     def download(self):
         """ Download the file """
+        server_time_modified = datetime.strptime(self.file_info["modified_at"], "%Y-%m-%dT%H:%M:%SZ")
+
         if os.path.exists(self.sync_path):
-            return False
+            local_time_modified = datetime.fromtimestamp(os.path.getmtime(self.sync_path)) \
+                                                    .replace(microsecond=0) # Remove milliseconds as Canvas API only returns seconds
+
+            if server_time_modified <= local_time_modified:
+                # local file is up-to-date
+                return False
+
+            # delete the local outdated file
+            os.remove(self.sync_path)
 
         self.print_status(u"DOWNLOADING", color=u"blue")
 
@@ -72,6 +83,10 @@ class File(CanvasEntity):
         try:
             with open(self.sync_path, u"wb") as out_file:
                 out_file.write(file_data)
+
+            # Set the accessed and modified time to the same as the server file
+            modtime = server_time_modified.timestamp()
+            os.utime(self.sync_path, times=(modtime, modtime))
 
         except KeyboardInterrupt as e:
             # If interrupted mid-writing, delete the corrupted file
