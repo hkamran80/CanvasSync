@@ -202,25 +202,7 @@ class CanvasEntity(object):
         return self.children
 
     def print(self, *args, **kwargs):
-        last = kwargs.get('last', False)
-        if not last:
-            self.print_queue.append((args, kwargs))
-            return
-
-        if self.has_printed:
-            raise RuntimeError("self.print(last=True) can only be called once per instance.")
-
-        # Wait for our turn to print
-        if self.parent is not None:
-            while not self.parent.has_printed or \
-                self != self.parent.children[self.parent.child_to_print]:
-                time.sleep(0.01)
-
-        for args, kwargs in self.print_queue:
-            print(*args, flush=True, **kwargs)
-
-        self.has_printed = True
-        self.print_queue.clear()
+        self.print_queue.append((args, kwargs))
 
     def print_status(self, status, color):
         """ Print status to console """
@@ -231,8 +213,18 @@ class CanvasEntity(object):
             for child in self:
                 executor.submit(child.sync)
 
+            # Wait for our turn to print
+            if self.parent is not None:
+                while not self.parent.has_printed or \
+                    self != self.parent.children[self.parent.child_to_print]:
+                    time.sleep(0.01)
+
             # Flush print buffer
-            self.print(last=True)
+            for args, kwargs in self.print_queue:
+                print(*args, flush=True, **kwargs)
+
+            self.has_printed = True
+            self.print_queue.clear()
 
             # This blocks until all jobs are done
 
