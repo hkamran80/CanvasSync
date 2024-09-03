@@ -138,25 +138,13 @@ class Page(CanvasEntity):
 
         return True
 
-    def print_status(self, status, color, overwrite_previous_line=False):
-        """ Print status to console """
-        if overwrite_previous_line:
-            # Move up one line
-            if self.print_queue:
-                self.print_queue.pop()
-            self.print(ANSI.format(u"", formatting=u"lineup"))
-
-        self.print(ANSI.format(u"[%s]" % status, formatting=color) + str(self)[len(status) + 2:])
-
     def sync(self):
         """
         Synchronize the page by downloading it from the Canvas server and saving it to the sync path
         If the page has already been downloaded, skip downloading.
         Page objects have no children objects and represents an end point of a folder traverse.
         """
-
-        was_downloaded = self.download()
-        self.print_status(u"SYNCED", color=u"green", overwrite_previous_line=was_downloaded)
+        self.print_status(u"SYNCED", color=u"green")
 
         for file in self:
             file.update_path()

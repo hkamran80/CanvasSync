@@ -70,17 +70,6 @@ class LinkedFile(CanvasEntity):
     def url_is_valid(self):
         return self.valid_url
 
-    def print_status(self, status, color, overwrite_previous_line=False):
-        """ Print status to console """
-
-        if overwrite_previous_line:
-            # Move up one line
-            if self.print_queue:
-                self.print_queue.pop()
-            self.print(ANSI.format(u"", formatting=u"lineup"))
-
-        self.print(ANSI.format(u"[%s]" % status, formatting=color) + str(self)[len(status) + 2:])
-
     def download(self):
         """
         Download the file, returns True or False depecting if the file was downloaded or not. Returns -1 if the file
@@ -96,12 +85,12 @@ class LinkedFile(CanvasEntity):
             response = requests.get(self.download_url)
         except Exception:
             # Could not download, catch any exception
-            self.print_status(u"FAILED", u"red", overwrite_previous_line=True)
+            self.print_status(u"FAILED", u"red")
             return -1
 
         # Check for OK 200 HTTP response
         if not response.status_code == 200:
-            self.print_status(u"FAILED", u"red", overwrite_previous_line=True)
+            self.print_status(u"FAILED", u"red")
             return -1
 
         # If here, download was successful, write to disk and print status
@@ -118,6 +107,6 @@ class LinkedFile(CanvasEntity):
         was_downloaded = self.download()
 
         if was_downloaded != - 1:
-            self.print_status(u"SYNCED", color=u"green", overwrite_previous_line=was_downloaded)
+            self.print_status(u"SYNCED", color=u"green")
 
         super().sync()

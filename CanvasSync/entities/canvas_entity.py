@@ -27,6 +27,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 # CanvasSync module imports
 from CanvasSync.utilities import helpers
+from CanvasSync.utilities.ANSI import ANSI
 
 
 class CanvasEntity(object):
@@ -220,6 +221,10 @@ class CanvasEntity(object):
 
         self.has_printed = True
         self.print_queue.clear()
+
+    def print_status(self, status, color):
+        """ Print status to console """
+        self.print(ANSI.format(u"[%s]" % status, formatting=color) + str(self)[len(status) + 2:])
 
     def sync(self):
         with ThreadPoolExecutor() as executor:
