@@ -18,7 +18,6 @@ See developer_info.txt file for more information on the class hierarchy of Canva
 
 # Inbuilt modules
 import os
-import sys
 from datetime import datetime
 
 from CanvasSync.entities.canvas_entity import CanvasEntity
@@ -103,18 +102,11 @@ class File(CanvasEntity):
 
         if overwrite_previous_line:
             # Move up one line
-            sys.stdout.write(ANSI.format(u"", formatting=u"lineup"))
-            sys.stdout.flush()
+            if self.print_queue:
+                self.print_queue.pop()
+            self.print(ANSI.format(u"", formatting=u"lineup"))
 
-        print(ANSI.format(u"[%s]" % status, formatting=color) + str(self)[len(status) + 2:])
-        sys.stdout.flush()
-
-    def walk(self, counter):
-        """ Stop walking, endpoint """
-        print(str(self))
-
-        counter[0] += 1
-        return
+        self.print(ANSI.format(u"[%s]" % status, formatting=color) + str(self)[len(status) + 2:])
 
     def sync(self):
         """
@@ -128,6 +120,4 @@ class File(CanvasEntity):
         else:
             self.print_status(u"LOCKED", color=u"red", overwrite_previous_line=False)
 
-    def show(self):
-        """ Show the folder hierarchy by printing every level """
-        print(str(self))
+        super().sync()

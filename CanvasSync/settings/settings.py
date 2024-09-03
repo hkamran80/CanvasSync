@@ -38,12 +38,13 @@ to validate the user input password.
 import os
 import sys
 
-# CanvasSync modules
-from CanvasSync.settings.cryptography import encrypt, decrypt
 from CanvasSync.settings import user_prompter
-from CanvasSync.utilities.instructure_api import InstructureApi
-from CanvasSync.utilities.ANSI import ANSI
+
+# CanvasSync modules
+from CanvasSync.settings.cryptography import decrypt, encrypt
 from CanvasSync.utilities import helpers
+from CanvasSync.utilities.ANSI import ANSI
+from CanvasSync.utilities.instructure_api import InstructureApi
 
 
 class Settings(object):

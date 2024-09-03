@@ -17,12 +17,11 @@ See developer_info.txt file for more information on the class hierarchy of Canva
 """
 
 # Inbuilt modules
-import sys
 
 # CanvasSync module imports
 from CanvasSync.entities.canvas_entity import CanvasEntity
-from CanvasSync.utilities.ANSI import ANSI
 from CanvasSync.utilities import helpers
+from CanvasSync.utilities.ANSI import ANSI
 from CanvasSync.utilities.url_shortcut_maker import make_url_shortcut
 
 
@@ -55,13 +54,6 @@ class ExternalUrl(CanvasEntity):
                                                                                     formatting=u"externalurl"),
                                                                         self.name)
 
-    def walk(self, counter):
-        """ Stop walking, endpoint """
-        print(str(self))
-
-        counter[0] += 1
-        return
-
     def sync(self):
         """
         Synchronize by creating a local URL shortcut file in in at the sync_pat
@@ -72,9 +64,6 @@ class ExternalUrl(CanvasEntity):
         # As opposed to the File and Page classes we never write the "DOWNLOAD" status as we already have
         # all information needed to create the URL shortcut at this point. Here we just print the SYNCED status
         # no matter if the shortcut was recreated or not
-        print(ANSI.format(u"[SYNCED]", formatting=u"green") + str(self)[len(u"[SYNCED]"):])
-        sys.stdout.flush()
+        self.print(ANSI.format(u"[SYNCED]", formatting=u"green") + str(self)[len(u"[SYNCED]"):])
 
-    def show(self):
-        """ Show the folder hierarchy by printing every level """
-        print(str(self))
+        super().sync()

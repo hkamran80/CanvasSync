@@ -21,7 +21,6 @@ The Synchronizer encapsulates a list of children Course objects.
 from CanvasSync.entities.canvas_entity import CanvasEntity
 from CanvasSync.entities.course import Course
 from CanvasSync.utilities import helpers
-from CanvasSync.utilities.ANSI import ANSI
 
 
 class Synchronizer(CanvasEntity):
@@ -95,38 +94,13 @@ class Synchronizer(CanvasEntity):
                             settings=self.settings)
             self.add_child(course)
 
-    def walk(self):
-        """ Walk by adding all Courses to the list of children """
-
-        # Print initial walk message
-        print(self)
-        print(ANSI.format(u"\n[*] Mapping out the Canvas folder hierarchy. "
-                          u"Please wait...", u"red"))
-        self.add_courses()
-
-        counter = [2]
-        for course in self:
-            course.walk(counter)
-
-        return counter
-
     def sync(self):
         """
         1) Adding all Courses objects to the list of children
         2) Synchronize all children objects
         """
-        print(str(self))
+        self.print(str(self))
 
         self.add_courses()
 
         super().sync()
-
-    def show(self):
-        """ Show the folder hierarchy by printing every level """
-
-        helpers.clear_console()
-        print(u"\n")
-        print(str(self))
-
-        for course in self:
-            course.show()

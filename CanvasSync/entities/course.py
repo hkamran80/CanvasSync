@@ -112,35 +112,16 @@ class Course(CanvasEntity):
         folder = Folder(main_folder, self)
         self.add_child(folder)
 
-    def walk(self, counter):
-        """ Walk by adding all Modules and AssignmentFolder objects to the list of children """
-
-        if not self.to_be_synced:
-            return
-
-        if not list(self.settings.modules_settings.values()) == [False, False, False]:
-            self.add_modules()
-
-        print(str(self))
-
-        # Add an AssignmentsFolder if at least one assignment is found under the course
-        self.add_assignments_folder()
-
-        # Add files folder
-        self.add_files_folder()
-
-        counter[0] += 1
-        for child in self:
-            child.walk(counter)
-
     def sync(self):
         """
         1) Adding all Modules and AssignmentFolder objects to the list of children
         2) Synchronize all children objects
         """
-        print(str(self))
+        self.print(str(self))
 
         if not self.to_be_synced:
+            # Print without adding any children
+            super().sync()
             return
 
         if not list(self.settings.modules_settings.values()) == [False, False, False]:
@@ -154,10 +135,3 @@ class Course(CanvasEntity):
         self.add_files_folder()
 
         super().sync()
-
-    def show(self):
-        """ Show the folder hierarchy by printing every level """
-        print(str(self))
-
-        for child in self:
-            child.show()

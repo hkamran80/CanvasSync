@@ -18,16 +18,15 @@ See developer_info.txt file for more information on the class hierarchy of Canva
 """
 
 # Inbuilt modules
-import os
-import sys
 import io
+import os
 import re
 
 from CanvasSync.entities.canvas_entity import CanvasEntity
-from CanvasSync.utilities.ANSI import ANSI
-from CanvasSync.utilities import helpers
 from CanvasSync.entities.file import File
 from CanvasSync.entities.linked_file import LinkedFile
+from CanvasSync.utilities import helpers
+from CanvasSync.utilities.ANSI import ANSI
 
 
 class Page(CanvasEntity):
@@ -143,18 +142,11 @@ class Page(CanvasEntity):
         """ Print status to console """
         if overwrite_previous_line:
             # Move up one line
-            sys.stdout.write(ANSI.format(u"", formatting=u"lineup"))
-            sys.stdout.flush()
+            if self.print_queue:
+                self.print_queue.pop()
+            self.print(ANSI.format(u"", formatting=u"lineup"))
 
-        print(ANSI.format(u"[%s]" % status, formatting=color) + str(self)[len(status) + 2:])
-        sys.stdout.flush()
-
-    def walk(self, counter):
-        """ Stop walking, endpoint """
-        print(str(self))
-
-        counter[0] += 1
-        return
+        self.print(ANSI.format(u"[%s]" % status, formatting=color) + str(self)[len(status) + 2:])
 
     def sync(self):
         """
@@ -168,8 +160,5 @@ class Page(CanvasEntity):
 
         for file in self:
             file.update_path()
-        super().sync()
 
-    def show(self):
-        """ Show the folder hierarchy by printing every level """
-        print(str(self))
+        super().sync()

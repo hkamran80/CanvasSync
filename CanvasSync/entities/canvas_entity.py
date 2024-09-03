@@ -22,6 +22,7 @@ See developer_info.txt file for more information on the class hierarchy of Canva
 """
 # Inbuilt modules
 import os
+import time
 from concurrent.futures import ThreadPoolExecutor
 
 # CanvasSync module imports
@@ -116,6 +117,11 @@ class CanvasEntity(object):
                 # Add CanvasEntity to the list in the Synchronizer object
                 self.get_synchronizer().add_entity(self, self.get_course().get_id())
 
+        # Initialize list of args to print
+        self.print_queue = []
+        self.child_to_print = 0
+        self.has_printed = False
+
     def __getitem__(self, item):
         """ Container get-item method can be used to access a specific child object """
         return self.children[item]
@@ -194,11 +200,39 @@ class CanvasEntity(object):
         """ Getter method for the list of children """
         return self.children
 
+    def print(self, *args, **kwargs):
+        last = kwargs.get('last', False)
+        if not last:
+            self.print_queue.append((args, kwargs))
+            return
+
+        if self.has_printed:
+            raise RuntimeError("self.print(last=True) can only be called once per instance.")
+
+        # Wait for our turn to print
+        if self.parent is not None:
+            while not self.parent.has_printed or \
+                self != self.parent.children[self.parent.child_to_print]:
+                time.sleep(0.01)
+
+        for args, kwargs in self.print_queue:
+            print(*args, flush=True, **kwargs)
+
+        self.has_printed = True
+        self.print_queue.clear()
+
     def sync(self):
-        # Use ThreadPoolExecutor to synchronize children in parallel
         with ThreadPoolExecutor() as executor:
             for child in self:
                 executor.submit(child.sync)
+
+            # Flush print buffer
+            self.print(last=True)
+
+            # This blocks until all jobs are done
+
+        if self.parent is not None:
+            self.parent.child_to_print += 1
 
     def update_path(self):
         """ Update the path to the current parents sync path plus the current file name """

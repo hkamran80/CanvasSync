@@ -16,10 +16,10 @@ See developer_info.txt file for more information on the class hierarchy of Canva
 """
 
 # CanvasSync modules
-from CanvasSync.utilities.ANSI import ANSI
 from CanvasSync.entities.canvas_entity import CanvasEntity
 from CanvasSync.entities.file import File
 from CanvasSync.utilities import helpers
+from CanvasSync.utilities.ANSI import ANSI
 
 
 class Folder(CanvasEntity):
@@ -94,32 +94,12 @@ class Folder(CanvasEntity):
             folder = Folder(folder, self, black_list=self.black_list)
             self.add_child(folder)
 
-    def walk(self, counter):
-        """
-        Walk by adding all Files and Folder objects to the list of children
-        """
-        print(str(self))
-
-        # If avoid duplicated setting is active, initialize black list of files found in Modules and
-        # Assignments if it was not passed to the object at initialization.
-        if not self.black_list and self.settings.avoid_duplicates:
-            self.black_list = self.initialize_black_list()
-        elif not self.settings.avoid_duplicates:
-            self.black_list = []
-
-        self.add_files()
-        self.add_sub_folders()
-
-        counter[0] += 1
-        for item in self:
-            item.walk(counter)
-
     def sync(self):
         """
         1) Adding all Files and Folder objects to the list of children
         2) Synchronize all children objects
         """
-        print(str(self))
+        self.print(str(self))
 
         # If avoid duplicated setting is active, initialize black list of files found in Modules and
         # Assignments if it was not passed to the object at initialization.
@@ -132,6 +112,3 @@ class Folder(CanvasEntity):
         self.add_sub_folders()
 
         super().sync()
-
-    def show(self):
-        pass

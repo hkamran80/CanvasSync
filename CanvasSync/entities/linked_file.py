@@ -18,7 +18,6 @@ See developer_info.txt file for more information on the class hierarchy of Canva
 
 # Inbuilt modules
 import os
-import sys
 
 # Third party modules
 import requests
@@ -76,11 +75,11 @@ class LinkedFile(CanvasEntity):
 
         if overwrite_previous_line:
             # Move up one line
-            sys.stdout.write(ANSI.format(u"", formatting=u"lineup"))
-            sys.stdout.flush()
+            if self.print_queue:
+                self.print_queue.pop()
+            self.print(ANSI.format(u"", formatting=u"lineup"))
 
-        print(ANSI.format(u"[%s]" % status, formatting=color) + str(self)[len(status) + 2:])
-        sys.stdout.flush()
+        self.print(ANSI.format(u"[%s]" % status, formatting=color) + str(self)[len(status) + 2:])
 
     def download(self):
         """
@@ -111,13 +110,6 @@ class LinkedFile(CanvasEntity):
 
         return True
 
-    def walk(self, counter):
-        """ Stop walking, endpoint """
-        print(str(self))
-
-        counter[0] += 1
-        return
-
     def sync(self):
         """
         Attempt to download a file a the url 'download_url' to the path 'path'/filename while printing
@@ -128,6 +120,4 @@ class LinkedFile(CanvasEntity):
         if was_downloaded != - 1:
             self.print_status(u"SYNCED", color=u"green", overwrite_previous_line=was_downloaded)
 
-    def show(self):
-        """ Show the folder hierarchy by printing every level """
-        print(str(self))
+        super().sync()

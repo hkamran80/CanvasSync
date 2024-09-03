@@ -19,17 +19,17 @@ of entity objects.
 """
 
 # Inbuilt modules
-import re
-import os
 import io
+import os
+import re
 
 # CanvasSync module imports
 from CanvasSync.entities.canvas_entity import CanvasEntity
 from CanvasSync.entities.file import File
-from CanvasSync.entities.page import Page
 from CanvasSync.entities.linked_file import LinkedFile
-from CanvasSync.utilities.ANSI import ANSI
+from CanvasSync.entities.page import Page
 from CanvasSync.utilities import helpers
+from CanvasSync.utilities.ANSI import ANSI
 
 
 class Assignment(CanvasEntity):
@@ -123,30 +123,14 @@ class Assignment(CanvasEntity):
                 else:
                     del linked_file
 
-    def walk(self, counter):
-        """ Walk by adding all File objects to the list of children """
-        print(str(self))
-        self.add_files()
-
-        counter[0] += 1
-        for file in self:
-            file.walk(counter)
-
     def sync(self):
         """
         1) Adding all File and LinkedFile objects to the list of children
         2) Synchronize all children objects
         """
-        print(str(self))
+        self.print(str(self))
 
         self.add_files()
         self.make_html()
 
         super().sync()
-
-    def show(self):
-        """ Show the folder hierarchy by printing every level """
-        print(str(self))
-
-        for file in self:
-            file.show()

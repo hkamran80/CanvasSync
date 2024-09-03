@@ -18,8 +18,8 @@ See developer_info.txt file for more information on the class hierarchy of Canva
 """
 
 # CanvasSync modules
-from CanvasSync.utilities.ANSI import ANSI
 from CanvasSync.entities.module import Module
+from CanvasSync.utilities.ANSI import ANSI
 
 
 class SubHeader(Module):
@@ -55,20 +55,6 @@ class SubHeader(Module):
                                                                    % (ANSI.format(u"Sub header", formatting=u"subheader"),
                                                                       self.name)
 
-    def walk(self, counter):
-        """
-        Walk by adding all File, Page, ExternalLink and SubFolder objects to the list of children
-        SubFolder is instantiated with a list of dictionaries of item information and will supply this to the add_items
-        method. add_items will then not download the items from the server.
-        """
-        print(str(self))
-
-        self.add_items(items=self.items)
-
-        counter[0] += 1
-        for item in self:
-            item.walk(counter)
-
     def sync(self):
         """
         1) Adding all File, Page, ExternalLink and SubFolder objects to the list of children
@@ -77,7 +63,7 @@ class SubHeader(Module):
         SubFolder is instantiated with a list of dictionaries of item information and will supply this to the add_items
         method. add_items will then not download the items from the server.
         """
-        print(str(self))
+        self.print(str(self))
 
         self.add_items(items=self.items)
 
