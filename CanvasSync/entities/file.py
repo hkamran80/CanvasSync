@@ -104,7 +104,9 @@ class File(CanvasEntity):
         File objects have no children objects and represents an end point of a folder traverse.
         """
         if not self.locked:
+            self.download()
             self.print_status(u"SYNCED", color=u"green")
+
         else:
             self.print_status(u"LOCKED", color=u"red")
 
