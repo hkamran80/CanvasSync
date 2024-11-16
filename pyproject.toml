@@ -1,0 +1,9 @@
+[project]
+name = "canvassync"
+version = "0.2.5"
+description = "Synchronise modules, assignments and files located on a Canvas by Instructure web server to your local computer."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "requests>=2.32.3",
+]
